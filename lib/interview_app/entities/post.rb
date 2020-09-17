@@ -10,7 +10,6 @@ class Post < Hanami::Entity
 
     attribute :title, Types::String
     attribute :body, Types::String
-    attribute :ip, Types::String
     attribute :votes, Types::Int
     attribute :total_rating, Types::Int
     attribute :avg_rating, Types::Float

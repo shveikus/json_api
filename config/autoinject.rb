@@ -10,11 +10,6 @@ class ContainerRepos < Dry::System::Container
   register('post_repo', memoize: true) do
     PostRepository.new
   end
-
-  register('rating_repo', memoize: true) do
-    RatingRepository.new
-  end
-
 end
 
 ContainerRepos.register(:current_time, memoize: true) { -> { Time.now } }
@@ -40,4 +35,3 @@ end
 ContainerOperations.register(:current_time, memoize: true) { -> { Time.now } }
 
 ImportOperations = ContainerOperations.injector
-

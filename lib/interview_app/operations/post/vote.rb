@@ -15,7 +15,7 @@ module InterviewApp
           payload = yield VALIDATOR.call(payload).to_either
           post = yield calculate_and_update_post_avg_rating(payload)
 
-          Success({avg_rating: post.avg_rating})
+          Success({ avg_rating: post.avg_rating })
         end
 
         private
@@ -35,7 +35,7 @@ module InterviewApp
               total_rating = post.total_rating + payload[:user_rate]
               votes = post.votes + 1
               avg_rating = total_rating / votes
-              new_post = ::Post.new({total_rating: total_rating, votes: votes, avg_rating: avg_rating})
+              new_post = ::Post.new({ total_rating: total_rating, votes: votes, avg_rating: avg_rating })
               post_repo.update(post.id, new_post)
             end
           end.to_result

@@ -10,12 +10,13 @@ module InterviewApp
         VALIDATOR = Dry::Validation.JSON do
           required(:title).filled(:str?)
           required(:body).filled(:str?)
-          required(:author_login).filled(:str?)
+          required(:login).filled(:str?)
+          optional(:ip).filled(:str?)
         end
 
         def call(payload)
           payload = yield VALIDATOR.call(payload).to_either
-          user = user_exist?(payload[:author_login])
+          user = yield user_find_or_create(payload)
           payload[:user_id] = user.id
           post = yield persist_post(payload)
 
@@ -30,8 +31,11 @@ module InterviewApp
           end.to_result
         end
 
-        def user_exist?(login)
-          user_repo.already_exist?(login) || user_repo.create( login: login)
+        def user_find_or_create(payload)
+          Try(Hanami::Model::UniqueConstraintViolationError) do
+            user_params = { login: payload[:login], ip: payload.fetch(:ip, '0.0.0.0') }
+            user_repo.already_exist?(user_params[:login]) || user_repo.create(user_params)
+          end.to_result
         end
       end
     end
