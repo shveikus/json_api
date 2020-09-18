@@ -22,7 +22,7 @@ module InterviewApp
         def get_top_rating(top)
           Try(Hanami::Model::UniqueConstraintViolationError) do
             relation = post_repo.find_by_top_rating(top)
-            relation.map { |i| { title: i[:title], body: i[:body] } }
+            relation.map { |post| { title: post[:title], body: post[:body] } }
           end.to_result
         end
       end

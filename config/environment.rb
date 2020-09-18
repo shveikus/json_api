@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'dotenv/load'
 require 'require_all'
 require_relative './autoinject'
 require 'bundler/setup'
@@ -19,5 +20,5 @@ require 'pry'
 require_relative '../app'
 
 Hanami::Model.configure do
-  adapter :sql, ENV['DB_URL'] || 'postgresql://postgres:postgres@localhost/interview_app?max_connections=16'
+  adapter :sql, ENV['DB_URL']
 end.load!

@@ -5,7 +5,7 @@ class App < Hanami::API
   use Hanami::Middleware::BodyParser, :json
 
   post '/api/v1/post' do
-    result = InterviewApp::Operations::Post::Create.new.call params
+    result = InterviewApp::Operations::Post::Create.new.call(params)
 
     case result
     when Success
@@ -16,7 +16,7 @@ class App < Hanami::API
   end
 
   post '/api/v1/post/vote' do
-    result = InterviewApp::Operations::Post::Vote.new.call params
+    result = InterviewApp::Operations::Post::Vote.new.call(params)
 
     case result
     when Success
@@ -32,7 +32,7 @@ class App < Hanami::API
 
   get '/api/v1/post/top-rating' do
     params[:top] = params[:top]&.to_i
-    result = InterviewApp::Operations::Post::VoteTopRating.new.call params
+    result = InterviewApp::Operations::Post::VoteTopRating.new.call(params)
 
     case result
     when Success

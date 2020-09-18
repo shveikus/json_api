@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 ruby '2.7.0'
 
 gem 'bigdecimal', '1.4.2'
+gem 'dotenv', '~> 2.7'
 gem 'dry-monads', '~> 1.1.0'
 gem 'dry-system', '~> 0.9.0'
 gem 'dry-validation', '~> 0.11.0'

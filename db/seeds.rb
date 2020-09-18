@@ -6,7 +6,7 @@ require 'pry'
 
 HEADERS = {
   'Content-type' => 'application/json'
-}
+}.freeze
 
 threads = []
 logins = []
@@ -19,7 +19,7 @@ bar_posts = ProgressBar.new 200_000
 puts 'Start creating via http endpoint 200k posts'
 20.times do
   threads << Thread.new do
-    10_000.times do |_i|
+    10_000.times do
       bar_posts.increment!
       @result = HTTParty.post('http://localhost:9292/api/v1/post',
                               body: {
@@ -41,7 +41,7 @@ bar_votes = ProgressBar.new 20_000
 puts 'Starting creating via http endpoint 2k votes'
 20.times do
   threads_rates << Thread.new do
-    1000.times do |_i|
+    1000.times do
       bar_votes.increment!
       @result = HTTParty.post('http://localhost:9292/api/v1/post/vote',
                               body: {
