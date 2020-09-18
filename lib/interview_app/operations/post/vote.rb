@@ -7,7 +7,7 @@ module InterviewApp
         ]
 
         VALIDATOR = Dry::Validation.JSON do
-          required(:user_rate).filled(:int?)
+          required(:user_rate).filled(:int?, lt?: 6, gt?: 0)
           required(:post_id).filled(:int?)
         end
 
@@ -20,23 +20,10 @@ module InterviewApp
 
         private
 
-        def persist_post(payload)
-          Try do
-            post_repo.find_post(payload[:post_id])
-          end.to_result
-        end
-
+        # locking row due to database concurency issues
         def calculate_and_update_post_avg_rating(payload)
           Try do
-            post_relation = post_repo.posts.where(id: payload[:post_id])
-            post_relation.lock do
-              post = post_relation.map_to(Post).one
-              total_rating = post.total_rating + payload[:user_rate]
-              votes = post.votes + 1
-              avg_rating = total_rating / votes
-              new_post = ::Post.new({ total_rating: total_rating, votes: votes, avg_rating: avg_rating })
-              post_repo.update(post.id, new_post)
-            end
+            post_repo.update_avg_rating(payload)
           end.to_result
         end
       end

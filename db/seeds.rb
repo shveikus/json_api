@@ -4,7 +4,7 @@ require 'faker'
 require 'progress_bar'
 require 'pry'
 
-headers = {
+HEADERS = {
   'Content-type' => 'application/json'
 }
 
@@ -28,7 +28,7 @@ puts 'Start creating via http endpoint 200k posts'
                                 "login": logins.sample,
                                 "ip": "192.168.112.#{rand(50)}"
                               }.to_json,
-                              headers: headers)
+                              headers: HEADERS)
       puts 'Error: #{@result.body}' unless @result.code == 200
     end
   end
@@ -50,7 +50,7 @@ puts 'Starting creating via http endpoint 2k votes'
                                 # "user_rate": 1,
                                 # "post_id": 1
                               }.to_json,
-                              headers: headers)
+                              headers: HEADERS)
       puts 'Error' unless @result.code == 200
     end
   end

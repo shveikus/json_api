@@ -3,9 +3,6 @@
 class App < Hanami::API
   include Dry::Monads::Result::Mixin
   use Hanami::Middleware::BodyParser, :json
-  include ImportOperations[
-    operation: 'operations_post_create'
-  ]
 
   post '/api/v1/post' do
     result = InterviewApp::Operations::Post::Create.new.call params

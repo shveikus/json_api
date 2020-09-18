@@ -15,6 +15,7 @@ require 'dry/monads/do/all'
 require 'dry/validation'
 require 'dry/system/container'
 require 'oj'
+require 'pry'
 require_relative '../app'
 
 Hanami::Model.configure do
