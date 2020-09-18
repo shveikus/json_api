@@ -10,4 +10,8 @@ class PostRepository < Hanami::Repository
   def find_by_top_rating(top)
     posts.order { avg_rating.desc }.limit(top[:top])
   end
+
+  def find_by_top_rating(top)
+    posts.order { avg_rating.desc }.limit(top[:top])
+  end
 end

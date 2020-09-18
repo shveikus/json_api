@@ -1,6 +1,5 @@
 require 'rake'
 require 'pg'
-require 'pry'
 
 begin
   require 'rspec/core/rake_task'

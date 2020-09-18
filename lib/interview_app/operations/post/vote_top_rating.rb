@@ -7,7 +7,7 @@ module InterviewApp
         ]
 
         VALIDATOR = Dry::Validation.JSON do
-          required(:top).filled(:int?, gt?: 0, lt?: 6)
+          required(:top).filled(:int?, gt?: 0)
         end
 
         def call(top)

@@ -2,7 +2,6 @@
 
 require 'require_all'
 require_relative './autoinject'
-
 require 'bundler/setup'
 require 'hanami/api'
 require 'hanami/model'

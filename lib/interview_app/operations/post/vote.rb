@@ -22,16 +22,15 @@ module InterviewApp
 
         def persist_post(payload)
           Try do
-            post_repo.root.lock do
-              post_repo.find_post(payload[:post_id])
-            end
+            post_repo.find_post(payload[:post_id])
           end.to_result
         end
 
         def calculate_and_update_post_avg_rating(payload)
           Try do
-            post_repo.root.lock do
-              post = post_repo.find_post(payload[:post_id])
+            post_relation = post_repo.posts.where(id: payload[:post_id])
+            post_relation.lock do
+              post = post_relation.map_to(Post).one
               total_rating = post.total_rating + payload[:user_rate]
               votes = post.votes + 1
               avg_rating = total_rating / votes
