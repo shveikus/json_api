@@ -1,6 +1,6 @@
 ## Requirements:
   1. start Postresql server (```docker run -d --name psql -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres  -p 5432:5432 postgres```)
-  2. update psql connection url at ```config/environment.rb:22```
+  2. update .env file
   3. preapre DB executing ```bundle exec rake db:prepare```
   4. run server ```bundle exec rackup```
 
